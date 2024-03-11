@@ -16,6 +16,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TrasladoResponse } from '../../interfaces/traslado-response';
 import { DialogoVerTrasladoWebComponent } from './components/dialogo-ver-traslado-webs/dialogo-ver-traslado-web.component';
 import { DialogoVerContactoEmergenciaComponent } from './components/dialogo-ver-contacto-emergencia/dialogo-ver-contacto-emergencia.component';
+import { Vehiculo } from '../../interfaces/vehiculo-response';
+import { VehiculoTabla } from '../../interfaces/vehiculo-tabla';
 
 @Component({
   selector: 'app-lista-producto',
@@ -30,6 +32,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   choferes: Chofere[] = [];
   lugares: Lugares[] = [];
+  vehiculos: Vehiculo[] = [];
   trasladoActual!: TrasladoResponse;
 
   isLoading = false;
@@ -47,9 +50,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
   });
 
   displayedColumns: string[] = ['checkbox', 'id', 'nombre', 'apellido', 'cedula', 'fecha', 'carros', 'banco', 'evaluacion', 'emergencia'];
-  displayedColumns2: string[] = ['checkbox', 'id', 'nombre', 'apellido', 'cedula', 'fecha', 'carros', 'banco', 'evaluacion'];
+  displayedColumns2: string[] = ['id', 'marca', 'color', 'placa', 'fecha', 'evaluacion'];
 
   dataSource!: MatTableDataSource<ChoferTabla>;
+  dataSource2!: MatTableDataSource<VehiculoTabla>;
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -70,7 +74,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.getLugaresDisponibles();
       break;
       case 3:
-        // this.mainTitle = 'Lista de Vehiculos'
+        this.getVehiculosByIdFromChoferes();
       break;
       default:
         break;
@@ -98,6 +102,28 @@ export class MainPageComponent implements OnInit, OnDestroy {
       this.lugares = resp
     })
   }
+
+  //Si es para chofer
+    getVehiculosByIdFromChoferes() {
+      this.MainPageService.getVehiculosChofer(this.user()?.idUsuario!).subscribe(resp => {
+        this.vehiculos = resp.chofer.vehiculos
+        const users = Array.from({ length: this.vehiculos.length }, (_, k) => this.crearVehiculosChofer(k));
+        this.dataSource2 = new MatTableDataSource(users);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      })
+    }
+
+    /** Builds and returns a new Products. */
+    crearVehiculosChofer(i: number): VehiculoTabla {
+      return {
+          id: this.vehiculos[i].id,
+          marca: this.vehiculos[i].marca,
+          color: this.vehiculos[i].color,
+          placa: this.vehiculos[i].placa,
+          anio_fabricacion: this.vehiculos[i].anio_fabricacion,
+      }
+    }
 
   guardarTraslado():void{
     const {origen, destino } = this.lugarFormulario.value
@@ -133,12 +159,6 @@ export class MainPageComponent implements OnInit, OnDestroy {
       )
     }
   }
-
-  //TODO: Hacer la de chofer 
-    //getVehiculoFromBBDD()
-
-  //TODO: Hacer la de cliente
-    //getRutasFromBBDD()
   
     applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -183,6 +203,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.dialog.open(DialogoVerContactoEmergenciaComponent, {
       data: element.id,
     })
+  }
+
+  openDialogEvaluacionVehiculo(element: VehiculoTabla){
+    console.log("Hola");
   }
 
   onFileSelected(event: any) {

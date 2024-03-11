@@ -10,7 +10,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { UbicacionesResponse } from '../../../interfaces/ubicaciones-response';
 import { Banco } from '../../../interfaces/models/banco';
 import { EvaluacionChofer } from '../../../interfaces/models/evaluacion_chofer';
-import { VehiculoResponse } from '../../../interfaces/vehiculo-response';
+import { Vehiculo, VehiculoResponse } from '../../../interfaces/vehiculo-response';
 import { Lugares } from '../../../interfaces/models/lugares';
 import { TrasladoResponse } from '../../../interfaces/traslado-response';
 import { ContactoEmergencia } from '../../../interfaces/models/contacto_emergencia';
@@ -71,8 +71,8 @@ export class MainPageService extends ProductoService {
     return this.http.get<EvaluacionChofer>(url);
   }
 
-  getVehiculosChofer(id:number): Observable<VehiculoResponse>{
-    const url = `${this.baseUrl}/choferes/${id}/vehiculos`;
+  getVehiculosChofer(idChofer:number): Observable<VehiculoResponse>{
+    const url = `${this.baseUrl}/choferes/${idChofer}/vehiculos`;
     return this.http.get<VehiculoResponse>(url);
   }
 
@@ -96,6 +96,7 @@ export class MainPageService extends ProductoService {
     const url = `${this.baseUrl}/choferes/${idChofer}`;
     return this.http.get<Chofere>(url);
   }
+
 
   postEvaluacion(idChofer:number, calificacion:number): Observable<any>{
     const body = {idChofer, calificacion}
