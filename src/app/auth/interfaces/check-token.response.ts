@@ -1,6 +1,7 @@
 export interface CheckTokenResponse{
     email_user:      string;
     distid:          string;
+    role_nombre:     string;
     role:            number;
     token:           string;
     additional_data: AdditionalData;

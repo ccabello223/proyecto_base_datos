@@ -1,5 +1,6 @@
 export interface AuthResponse {
     email_user:      string;
+    role_nombre:     string;
     distid:          string;
     role:            number;
     token:           string;

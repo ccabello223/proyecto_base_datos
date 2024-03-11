@@ -29,6 +29,34 @@ export class MainPageService extends ProductoService {
     // )
   }
 
+  getChofer(id:number): Observable<Chofer>{
+    const url = `${this.baseUrl}/choferes/${id}`;
+    return this.http.get<Chofer>(url)
+  }
+
+  // Obtiene los datos de los cliente
+
+  getClientedeEmergecia(id:number): Observable<Array<object>> {
+    const url = `${this.baseUrl}/choferes/${id}/contactos-emergencia`;
+    return this.http.get<Array<object>>(url)
+  }
+
+  // eliminar Contactos
+  deleteClientedeEmergecia(id:number): Observable<Array<object>> {
+    const url = `${this.baseUrl}/contactos-emergencia/${id}`;
+    return this.http.delete<Array<object>>(url)
+  }
+  
+  addClientedeEmergecia(data:object): Observable<Array<object>> {
+    const url = `${this.baseUrl}/choferes/contactos-emergencia`;
+    return this.http.post<any>(url, data);
+  }
+
+  editClientedeEmergecia(data:object, id:number): Observable<Array<object>> {
+    const url = `${this.baseUrl}/contactos-emergencia/${id}`;
+    return this.http.put<any>(url, data);
+  }
+
 //Obtiene los bancos
   getBancos(): Observable<Banco[]>{
     const url = `${this.baseUrl}/bancos`;
