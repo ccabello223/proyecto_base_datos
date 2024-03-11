@@ -8,8 +8,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 /* Clases para flexbox */
-.flex {
-    display: flex;
+.flex{
+    display: flex !important;
 }
 
 .flex-row {
@@ -25,7 +25,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .justify-center {
-    justify-content: center;
+    justify-content: center !important;
+}
+
+.junstify-content-end{
+    justify-content: end !important;
 }
 
 /* Clases para márgenes */
@@ -116,4 +120,38 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .junstify-content-beteween{
     justify-content: space-between;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col-1 {
+    flex: 1 1 10%;
+    max-width: 10%;
+}
+
+.flex-col-2 {
+    flex: 1 1 20%;
+    max-width: 20%;
+}
+
+.flex-col-3 {
+    flex: 1 1 30%;
+    max-width: 30%;
+}
+
+.flex-col-4 {
+    flex: 1 1 40%;
+    max-width: 40%;
+}
+
+.flex-col-7 {
+    flex: 1 1 70%;
+    max-width: 70%;
+}
+
+.flex-col-8 {
+    flex: 1 1 80%;
+    max-width: 80%;
 }
