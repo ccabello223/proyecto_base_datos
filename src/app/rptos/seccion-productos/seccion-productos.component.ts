@@ -31,12 +31,12 @@ export class SeccionProductosComponent {
     {
       url:'lista-producto',
       icon: 'list_alt',
-      label: 'Lista de Producto'
+      label: 'Llanito System'
     },
-    {
-      url:'lista-producto-en-web',
-      icon: 'travel_explore',
-      label: 'Productos en la Web'
-    },
+    // {
+    //   url:'lista-producto-en-web',
+    //   icon: 'travel_explore',
+    //   label: 'Productos en la Web'
+    // },
   ]
 }

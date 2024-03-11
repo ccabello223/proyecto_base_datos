@@ -5,8 +5,8 @@
     <button class="m-1 pl-2 pr-2" mat-button routerLink="/rptos/productos">
         Sistema
     </button>
-    <button class="m-1 pl-2 pr-2" mat-button routerLink="/rptos/pedidos">
-        Pedidos
+    <button class="m-1 pl-2 pr-2" mat-button routerLink="/rptos/pedidos" *ngIf="user()?.rol === 3">
+        Ingresar Vehiculo
     </button>
 
     <span class="spacer"></span>

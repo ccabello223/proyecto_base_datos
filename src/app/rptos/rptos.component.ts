@@ -40,6 +40,7 @@ export class RptosComponent {
   public user = computed(() => this.authService.usuarioActual());
 
   constructor() {
+    this.user()?.rol
   }
 
   onLogout() {
