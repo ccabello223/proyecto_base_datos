@@ -9,12 +9,13 @@ import {MatButtonModule} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { EditInicioComponent } from './edit-inicio/edit-inicio.component';
+import { ChoferModule } from './chofer/chofer.module';
+import { AdminModule } from './admin/admin.module';
+import { ClientModule } from './client/client.module';
 
 @NgModule({
   declarations: [
     SeccionInicioComponent,
-    EditInicioComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +27,10 @@ import { EditInicioComponent } from './edit-inicio/edit-inicio.component';
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    ChoferModule,
+    AdminModule,
+    ClientModule
   ],
-  exports: [EditInicioComponent]
+  exports: []
 })
 export class SeccionInicioModule { }

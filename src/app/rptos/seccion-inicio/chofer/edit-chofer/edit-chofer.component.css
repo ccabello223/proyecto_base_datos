@@ -2,6 +2,10 @@
     display: flex !important;
 }
 
+.justify-center {
+    justify-content: center !important;
+}
+
 .junstify-content-end{
     justify-content: end !important;
 }
