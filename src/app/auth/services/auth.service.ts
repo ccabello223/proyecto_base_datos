@@ -35,6 +35,7 @@ export class AuthService {
       this._usuario = {
         email_user: resp.email_user!,
         rol: resp.role!,
+        role_nombre: resp.role_nombre!,
         distid: resp.distid!,
         nombre: resp.additional_data.nombre!,
         apellido: resp.additional_data.apellido!,
