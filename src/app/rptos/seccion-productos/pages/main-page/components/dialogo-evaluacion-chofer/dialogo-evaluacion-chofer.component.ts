@@ -2,7 +2,6 @@ import { Component, ElementRef, Inject, ViewChild, inject } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
-import { ListaProductoWebService } from '../../../lista-producto-en-web/services/lista-producto-web.service';
 import { EvaluacionChofer } from 'src/app/rptos/seccion-productos/interfaces/models/evaluacion_chofer';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';

@@ -4,7 +4,6 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 
 import { ChoferTabla, Usuario } from 'src/app/rptos/seccion-productos/interfaces';
 import Swal from 'sweetalert2';
-import { ListaProductoWebService } from '../../../lista-producto-en-web/services/lista-producto-web.service';
 import { TrasladoResponse } from 'src/app/rptos/seccion-productos/interfaces/traslado-response';
 
 interface ProductosEnVentasWeb {

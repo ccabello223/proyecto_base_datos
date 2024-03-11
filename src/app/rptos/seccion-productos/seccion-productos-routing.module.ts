@@ -12,10 +12,6 @@ const routes: Routes = [
         loadChildren: () => import('./pages/main-page/main-page.module').then(m=>m.ListaProductoModule)
       },
       {
-        path: 'lista-producto-en-web',
-        loadChildren: () => import('./pages/lista-producto-en-web/lista-producto-en-web.module').then(m=>m.ListaProductoEnWebModule)
-      },
-      {
         path: '**', redirectTo: 'lista-producto', pathMatch:'full'
       }
     ],

@@ -5,10 +5,5 @@
                 <mat-list-item role="listitem" *ngFor="let contacto of contactoEmergencia">{{contacto.nombre}} -- {{contacto.telefono}}</mat-list-item>
               </mat-list>
         </mat-tab>
-
-        <!-- Agregar Entidad bancaria -->
-        <mat-tab label="Agregar Contacto de Emergencia" *ngIf="this.user()?.rol === 3">
-            <h1>Mundo</h1>
-        </mat-tab>
     </mat-tab-group>
 </div>
