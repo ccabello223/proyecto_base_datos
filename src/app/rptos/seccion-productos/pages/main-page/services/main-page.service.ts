@@ -13,6 +13,7 @@ import { EvaluacionChofer } from '../../../interfaces/models/evaluacion_chofer';
 import { VehiculoResponse } from '../../../interfaces/vehiculo-response';
 import { Lugares } from '../../../interfaces/models/lugares';
 import { TrasladoResponse } from '../../../interfaces/traslado-response';
+import { ContactoEmergencia } from '../../../interfaces/models/contacto_emergencia';
 
 @Injectable({
   providedIn: 'root'
@@ -86,6 +87,11 @@ export class MainPageService extends ProductoService {
     return this.http.get<TrasladoResponse[]>(url);
   }
 
+  getContactoDeEmergencia(idChofer:number):Observable<ContactoEmergencia[]>{
+    const url = `${this.baseUrl}/choferes/${idChofer}/contactos-emergencia`;
+    return this.http.get<ContactoEmergencia[]>(url);
+  }
+
   postEvaluacion(idChofer:number, calificacion:number): Observable<any>{
     const body = {idChofer, calificacion}
     const url = `${this.baseUrl}/pruebas/evaluacion-psicologica`;
@@ -103,6 +109,7 @@ export class MainPageService extends ProductoService {
     const url = `${this.baseUrl}/${idCliente}/traslados/solicitar`;
     return this.http.post<any>(url, body)
   }
+
 
 
   postExcelProduct(selectedFile?: File):Observable<any>{

@@ -1,7 +1,9 @@
 <div mat-dialog-content>
     <mat-tab-group>
         <mat-tab label="Contacto de Emergencia">
-            <h1>Hola</h1>
+            <mat-list role="list">
+                <mat-list-item role="listitem" *ngFor="let contacto of contactoEmergencia">{{contacto.nombre}} -- {{contacto.telefono}}</mat-list-item>
+              </mat-list>
         </mat-tab>
 
         <!-- Agregar Entidad bancaria -->
