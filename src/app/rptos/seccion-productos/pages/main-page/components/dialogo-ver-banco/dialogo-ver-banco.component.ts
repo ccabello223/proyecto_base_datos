@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Banco } from 'src/app/rptos/seccion-productos/interfaces/models/banco';
 import { MainPageService } from '../../services/main-page.service';
+import { CuentasBancaria } from 'src/app/rptos/seccion-productos/interfaces';
 
 @Component({
   selector: 'app-dialogo-ver-imagen',
@@ -24,6 +25,8 @@ export class DialogoVerBancoComponent {
   choferId: number = 0;
   public fotoProducto: carouselImage[] = [];
   public bancos: Banco[] = [];
+  public cuentasBancaria: CuentasBancaria[] = [];
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: number) {
     //Id del chofer
     this.choferId = data;
@@ -31,6 +34,11 @@ export class DialogoVerBancoComponent {
     this.MainPageService.getBancos()
       .subscribe(resp => {
         this.bancos = resp;
+      });
+
+    this.MainPageService.getChoferPorId(data)
+      .subscribe(resp => {
+        this.cuentasBancaria = resp.cuentas_bancarias
       })
     };
 

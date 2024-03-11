@@ -92,6 +92,11 @@ export class MainPageService extends ProductoService {
     return this.http.get<ContactoEmergencia[]>(url);
   }
 
+  getChoferPorId(idChofer:number):Observable<Chofere>{
+    const url = `${this.baseUrl}/choferes/${idChofer}`;
+    return this.http.get<Chofere>(url);
+  }
+
   postEvaluacion(idChofer:number, calificacion:number): Observable<any>{
     const body = {idChofer, calificacion}
     const url = `${this.baseUrl}/pruebas/evaluacion-psicologica`;

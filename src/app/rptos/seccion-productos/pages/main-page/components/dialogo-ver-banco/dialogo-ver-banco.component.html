@@ -1,7 +1,9 @@
 <div mat-dialog-content>
     <mat-tab-group>
         <mat-tab label="Cuentas del chofer">
-           <h2>Falta definir</h2>
+          <mat-list role="list">
+            <mat-list-item role="listitem" *ngFor="let cuenta of cuentasBancaria">{{cuenta.idBanco}} -- {{cuenta.nroCuenta}}</mat-list-item>
+          </mat-list>
         </mat-tab>
 
         <!-- Agregar Entidad bancaria -->
