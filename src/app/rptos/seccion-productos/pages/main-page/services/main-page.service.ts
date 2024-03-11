@@ -58,6 +58,12 @@ export class MainPageService extends ProductoService {
     return this.http.get<TrasladoResponse[]>(url);
   }
 
+  postEvaluacion(idChofer:number, calificacion:number): Observable<any>{
+    const body = {idChofer, calificacion}
+    const url = `${this.baseUrl}/pruebas/evaluacion-psicologica`;
+    return this.http.post<any>(url, body)
+  }
+
   //Para agregar una entidad bancaria como pago al chofer
   postBancoChofer(id:number, body: any): Observable<any>{
     const url = `${this.baseUrl}/agregar-banco-chofer/${id}`;

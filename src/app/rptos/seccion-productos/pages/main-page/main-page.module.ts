@@ -11,6 +11,7 @@ import { DialogoVerBancoComponent } from './components/dialogo-ver-banco/dialogo
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DialogoVerTrasladoWebComponent } from './components/dialogo-ver-traslado-webs/dialogo-ver-traslado-web.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { DialogoVerContactoEmergenciaComponent } from './components/dialogo-ver-contacto-emergencia/dialogo-ver-contacto-emergencia.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     DialogoEvaluacionChoferComponent,
     DialogoVehiculoChoferComponent,
     DialogoVerBancoComponent,
+    DialogoVerContactoEmergenciaComponent
   ],
   imports: [
     CommonModule,

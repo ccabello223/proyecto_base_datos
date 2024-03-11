@@ -15,6 +15,7 @@ import { Lugares } from '../../interfaces/models/lugares';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TrasladoResponse } from '../../interfaces/traslado-response';
 import { DialogoVerTrasladoWebComponent } from './components/dialogo-ver-traslado-webs/dialogo-ver-traslado-web.component';
+import { DialogoVerContactoEmergenciaComponent } from './components/dialogo-ver-contacto-emergencia/dialogo-ver-contacto-emergencia.component';
 
 @Component({
   selector: 'app-lista-producto',
@@ -45,7 +46,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     destino: ['', [Validators.maxLength(255)]],
   });
 
-  displayedColumns: string[] = ['checkbox', 'id', 'nombre', 'apellido', 'cedula', 'fecha', 'carros', 'banco', 'evaluacion'];
+  displayedColumns: string[] = ['checkbox', 'id', 'nombre', 'apellido', 'cedula', 'fecha', 'carros', 'banco', 'evaluacion', 'emergencia'];
   displayedColumns2: string[] = ['checkbox', 'id', 'nombre', 'apellido', 'cedula', 'fecha', 'carros', 'banco', 'evaluacion'];
 
   dataSource!: MatTableDataSource<ChoferTabla>;
@@ -174,6 +175,12 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   openDialogVehiculo(element: ChoferTabla) {
     this.dialog.open(DialogoVehiculoChoferComponent, {
+      data: element.id,
+    })
+  }
+
+  openDialogContactoEmergencia(element: ChoferTabla) {
+    this.dialog.open(DialogoVerContactoEmergenciaComponent, {
       data: element.id,
     })
   }

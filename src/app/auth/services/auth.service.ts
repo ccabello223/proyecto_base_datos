@@ -31,6 +31,7 @@ export class AuthService {
   }
 
   private setAuthentication(resp:AuthResponse): boolean{
+    const password = localStorage.getItem('password') //Borrar esta linea en la entrega
     if (resp.email_user) {
       this._usuario = {
         email_user: resp.email_user!,
@@ -46,7 +47,7 @@ export class AuthService {
       this._estadoDelUsuario.set(EstadoUsuario.authenticated)
       localStorage.setItem('token', resp.token?.toString() || '')
       localStorage.setItem('correo', resp.email_user.toString() || '')
-      localStorage.setItem('password', this.password?.toString() || '')
+      localStorage.setItem('password', password!.toString() || '')
       return true;
     }
     return false;

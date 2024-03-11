@@ -19,28 +19,29 @@ export class DialogoEvaluacionChoferComponent {
   private MainPageService = inject(MainPageService);
   @ViewChild('txtTagInput')
   public tagInput!: ElementRef<HTMLInputElement>;
+  public calificacion: number = 0;
+  private idChofer: number = 0;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: number) {
+    this.idChofer = data
     this.MainPageService.getEvaluacionChofer(data)
     .subscribe( resp => {
+      this.calificacion = resp.calificacion
       this.tagInput.nativeElement.value = resp.calificacion.toString();
     })
   }
 
 
-  valueOfInput(): void{
-    console.log("Hola");
-    // const ubicacion = this.tagInput.nativeElement.value
-    // const body = { productoid: this.data.productoid, distid: this.data.distid, ubicacion }
-    // this.MainPageService.postUbicaciones(body)
-    // .subscribe( resp => {
-    //   if(resp["ok"] === true){
-    //     Swal.fire('Excelente', resp["msg"], 'success');
-    //     this.searchUbicacion();
-    //   }
-    //   else{
-    //     Swal.fire('Error', "Error. hablar con el administrador", 'error');
-    //   }
-    // })
-  }
-}
+  EvaluarChofer(): void{
+    const calificacion = this.tagInput.nativeElement.value
+    if(calificacion.length === 0){
+      this.MainPageService.postEvaluacion(this.idChofer, Number(calificacion))
+      .subscribe( resp => {
+        console.log(resp);
+      })
+      }else{
+        console.log("No se hace nada");
+      }
+    }
+ }
+
