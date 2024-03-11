@@ -12,6 +12,7 @@ import { Banco } from '../../../interfaces/models/banco';
 import { EvaluacionChofer } from '../../../interfaces/models/evaluacion_chofer';
 import { VehiculoResponse } from '../../../interfaces/vehiculo-response';
 import { Lugares } from '../../../interfaces/models/lugares';
+import { TrasladoResponse } from '../../../interfaces/traslado-response';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,11 @@ export class MainPageService extends ProductoService {
   getLugaresDisponibles(): Observable<Lugares[]>{
     const url = `${this.baseUrl}/lugares`;
     return this.http.get<Lugares[]>(url);
+  }
+
+  getTraslado(idCliente:number): Observable<TrasladoResponse[]>{
+    const url = `${this.baseUrl}/traslado/cliente/${idCliente}`;
+    return this.http.get<TrasladoResponse[]>(url);
   }
 
   //Para agregar una entidad bancaria como pago al chofer

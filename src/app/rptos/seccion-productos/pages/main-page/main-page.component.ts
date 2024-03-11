@@ -6,7 +6,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import Swal from 'sweetalert2';
-import { DialogoAgregarProductosWebsComponent } from './components/dialogo-agregar-productos-webs/dialogo-agregar-productos-webs.component';
 import { ChoferTabla, Chofere } from '../../interfaces';
 import { DialogoVerBancoComponent } from './components/dialogo-ver-banco/dialogo-ver-banco.component';
 import { DialogoEvaluacionChoferComponent } from './components/dialogo-evaluacion-chofer/dialogo-evaluacion-chofer.component';
@@ -14,6 +13,8 @@ import { DialogoVehiculoChoferComponent } from './components/dialogo-vehiculo-ch
 import { MainPageService } from './services/main-page.service';
 import { Lugares } from '../../interfaces/models/lugares';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TrasladoResponse } from '../../interfaces/traslado-response';
+import { DialogoVerTrasladoWebComponent } from './components/dialogo-ver-traslado-webs/dialogo-ver-traslado-web.component';
 
 @Component({
   selector: 'app-lista-producto',
@@ -28,6 +29,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   choferes: Chofere[] = [];
   lugares: Lugares[] = [];
+  trasladoActual!: TrasladoResponse;
 
   isLoading = false;
   message: string = '';
@@ -109,8 +111,23 @@ export class MainPageComponent implements OnInit, OnDestroy {
       this.MainPageService.postSolictarTraslado(this.user()?.idUsuario!, body)
       .subscribe(
         resp => {
-          // message:"Traslado solicitado con éxito."
-          console.log(resp);
+          if(resp["message"] === "Traslado solicitado con éxito.")
+          this.MainPageService.getTraslado(this.user()?.idUsuario!)
+          .subscribe(
+            resp => {
+              //obtengo el ultimo traslado realizado por el cliente
+              this.trasladoActual = resp[resp.length-1];
+              let lugarOrigen = this.lugares.find(lugar => lugar.id === idOrigen);
+              let lugarDestino = this.lugares.find(lugar => lugar.id === idDestino);
+              this.dialog.open(DialogoVerTrasladoWebComponent, {
+                data: {
+                  origen: lugarOrigen?.nombre,
+                  destino: lugarDestino?.nombre,
+                  traslado: this.trasladoActual
+                },
+              })
+            }
+          )
         }
       )
     }
@@ -214,11 +231,6 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.showButton = this.selectedRows.length > 0;
   }
 
-  saveSelectedRows() {
-    this.dialog.open(DialogoAgregarProductosWebsComponent, {
-      data: this.selectedRows,
-    })
-  }
 
   deleteProductSelected() {
     let productosABorrar: number[] = [];

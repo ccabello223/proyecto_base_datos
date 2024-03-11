@@ -16,6 +16,7 @@ export class AuthService {
   private _usuario!: Usuario;
 
   private _usuarioActual = signal<Usuario | null>(null);
+  private password: string = '';
   private _estadoDelUsuario = signal<EstadoUsuario>(EstadoUsuario.checking);
 
   public usuarioActual = computed(() => this._usuarioActual())
@@ -44,12 +45,15 @@ export class AuthService {
       this._usuarioActual.set(this._usuario)
       this._estadoDelUsuario.set(EstadoUsuario.authenticated)
       localStorage.setItem('token', resp.token?.toString() || '')
+      localStorage.setItem('correo', resp.email_user.toString() || '')
+      localStorage.setItem('password', this.password?.toString() || '')
       return true;
     }
     return false;
   }
 
   login(email_user: string, password: string): Observable<boolean> {
+    this.password = password;
     const url = `${this.baseUrl}/login`;
     const body = { email_user, password }
     return this.http.post<AuthResponse>(url, body)
@@ -65,30 +69,63 @@ export class AuthService {
   }
 
   checkEstadoDelUsuario(): Observable<boolean> {
-    const url = `${this.baseUrl}/auth/renew`;
+    const url = `${this.baseUrl}/login`;
     const token = localStorage.getItem('token')
+    const email_user = localStorage.getItem('correo')
+    const password = localStorage.getItem('password')
     if (!token){
       this.logout()
       return of(false);
     } 
 
-    const headers = new HttpHeaders()
-      .set('X-Token', token);
 
-    return this.http.get<CheckTokenResponse>(url, { headers })
+
+  
+    const body = { email_user, password }
+    // const headers = new HttpHeaders()
+    //   .set('X-Token', token);
+
+      return this.http.post<AuthResponse>(url, body)
       .pipe(
         map(resp => this.setAuthentication(resp)),
         catchError(() => {
           this._estadoDelUsuario.set(EstadoUsuario.notAuthenticated)
           return of(false)
         })
-      )
+      );
 
   }
 
+  // checkEstadoDelUsuario(): Observable<boolean> {
+  //   const url = `${this.baseUrl}/auth/renew`;
+  //   const token = localStorage.getItem('token')
+  //   if (!token){
+  //     this.logout()
+  //     return of(false);
+  //   } 
+
+  //   const headers = new HttpHeaders()
+  //     .set('X-Token', token);
+
+  //   return this.http.get<CheckTokenResponse>(url, { headers })
+  //     .pipe(
+  //       map(resp => this.setAuthentication(resp)),
+  //       catchError(() => {
+  //         this._estadoDelUsuario.set(EstadoUsuario.notAuthenticated)
+  //         return of(false)
+  //       })
+  //     )
+
+  // }
+
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('correo');
+    localStorage.removeItem('password');
     this._usuarioActual.set(null);
     this._estadoDelUsuario.set( EstadoUsuario.notAuthenticated );
   }
 }
+
+
+
