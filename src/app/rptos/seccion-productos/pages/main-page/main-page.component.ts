@@ -49,8 +49,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
     destino: ['', [Validators.maxLength(255)]],
   });
 
-  displayedColumns: string[] = ['checkbox', 'id', 'nombre', 'apellido', 'cedula', 'fecha', 'carros', 'banco', 'evaluacion', 'emergencia'];
-  displayedColumns2: string[] = ['id', 'marca', 'color', 'placa', 'fecha', 'evaluacion'];
+  displayedColumns: string[] = ['id', 'nombre', 'apellido', 'cedula', 'fecha', 'carros', 'banco', 'evaluacion', 'emergencia'];
+  displayedColumns2: string[] = ['id', 'marca', 'color', 'placa', 'fecha', 'evaluacion', 'emergencia'];
 
   dataSource!: MatTableDataSource<ChoferTabla>;
   dataSource2!: MatTableDataSource<VehiculoTabla>;
@@ -109,8 +109,6 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.vehiculos = resp.chofer.vehiculos
         const users = Array.from({ length: this.vehiculos.length }, (_, k) => this.crearVehiculosChofer(k));
         this.dataSource2 = new MatTableDataSource(users);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
       })
     }
 
@@ -209,120 +207,120 @@ export class MainPageComponent implements OnInit, OnDestroy {
     console.log("Hola");
   }
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-  }
+//   onFileSelected(event: any) {
+//     this.selectedFile = event.target.files[0];
+//   }
 
-  onUpload() {
-    if (this.selectedFile == undefined) {
-      Swal.fire('Error', "No ha subido ningún archivo!", 'error')
-    } else {
-      this.isLoading = true;
-      this.MainPageService.postExcelProduct(this.selectedFile)
-        .subscribe(resp => {
-          if (resp["ok"] === true) {
-            this.getChoferesFromBBDD();
-            Swal.fire('Todo correcto!!', resp["msg"], 'success')
-          }
-          else {
-            Swal.fire('Error', "Sucedió un error. Notificar a administración", 'error')
-          }
-          this.isLoading = false;
-        })
-    }
-  }
+//   onUpload() {
+//     if (this.selectedFile == undefined) {
+//       Swal.fire('Error', "No ha subido ningún archivo!", 'error')
+//     } else {
+//       this.isLoading = true;
+//       this.MainPageService.postExcelProduct(this.selectedFile)
+//         .subscribe(resp => {
+//           if (resp["ok"] === true) {
+//             this.getChoferesFromBBDD();
+//             Swal.fire('Todo correcto!!', resp["msg"], 'success')
+//           }
+//           else {
+//             Swal.fire('Error', "Sucedió un error. Notificar a administración", 'error')
+//           }
+//           this.isLoading = false;
+//         })
+//     }
+//   }
 
-  downloadExcel(): void {
-    window.location.href = `${this.MainPageService.getBaseUrl}/productos/downloadExcel`;
-  }
+//   downloadExcel(): void {
+//     window.location.href = `${this.MainPageService.getBaseUrl}/productos/downloadExcel`;
+//   }
 
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: ChoferTabla): string {
-    if (!row) {
-      return '';
-    }
-    if (this.selection.isSelected(row)) {
-      console.log(row);
-      //return row.descripcion;
-      return row.cedula;
-    }
-    return `${this.selection.isSelected(row) ? 'select' : 'deselect'} row ${row.id}`;
-    // console.log(`${this.selection.isSelected(row) ? 'select' : 'deselect'} row ${row.id}`);
-  }
+//   /** The label for the checkbox on the passed row */
+//   checkboxLabel(row?: ChoferTabla): string {
+//     if (!row) {
+//       return '';
+//     }
+//     if (this.selection.isSelected(row)) {
+//       console.log(row);
+//       //return row.descripcion;
+//       return row.cedula;
+//     }
+//     return `${this.selection.isSelected(row) ? 'select' : 'deselect'} row ${row.id}`;
+//     // console.log(`${this.selection.isSelected(row) ? 'select' : 'deselect'} row ${row.id}`);
+//   }
 
-  onRowSelect(event: any, row: any) {
-    if (event.checked) {
-      this.selectedRows.push(row);
-    } else {
-      const index = this.selectedRows.indexOf(row);
-      if (index > -1) {
-        this.selectedRows.splice(index, 1);
-      }
-    }
-    this.showButton = this.selectedRows.length > 0;
-  }
+//   onRowSelect(event: any, row: any) {
+//     if (event.checked) {
+//       this.selectedRows.push(row);
+//     } else {
+//       const index = this.selectedRows.indexOf(row);
+//       if (index > -1) {
+//         this.selectedRows.splice(index, 1);
+//       }
+//     }
+//     this.showButton = this.selectedRows.length > 0;
+//   }
 
 
-  deleteProductSelected() {
-    let productosABorrar: number[] = [];
-    this.selectedRows.forEach(element => {
-      productosABorrar.push(element.id);
-    })
-    Swal.fire({
-      title: '¿Estás seguro de borrar este artículo?',
-      text: "¡Este cambio no podrá ser revertido!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, borrar'
-    }).then((result:any) => {
-      if (result.isConfirmed) {
-        this.MainPageService.deleteProducts(productosABorrar).subscribe(resp => {
-          if(resp["ok"] == true){
-            Swal.fire(
-              'Borrado!',
-              resp["msg"],
-              'success'
-            );
-            this.getChoferesFromBBDD();
-          }else{
-            Swal.fire(
-              'Error!',
-              resp["errorMsg"],
-              'error'
-            );
-          }
-        })
-      }
-    });
+//   deleteProductSelected() {
+//     let productosABorrar: number[] = [];
+//     this.selectedRows.forEach(element => {
+//       productosABorrar.push(element.id);
+//     })
+//     Swal.fire({
+//       title: '¿Estás seguro de borrar este artículo?',
+//       text: "¡Este cambio no podrá ser revertido!",
+//       icon: 'warning',
+//       showCancelButton: true,
+//       confirmButtonColor: '#3085d6',
+//       cancelButtonColor: '#d33',
+//       confirmButtonText: 'Sí, borrar'
+//     }).then((result:any) => {
+//       if (result.isConfirmed) {
+//         this.MainPageService.deleteProducts(productosABorrar).subscribe(resp => {
+//           if(resp["ok"] == true){
+//             Swal.fire(
+//               'Borrado!',
+//               resp["msg"],
+//               'success'
+//             );
+//             this.getChoferesFromBBDD();
+//           }else{
+//             Swal.fire(
+//               'Error!',
+//               resp["errorMsg"],
+//               'error'
+//             );
+//           }
+//         })
+//       }
+//     });
     
-  }
+//   }
 
-  /*---------------
+//   /*---------------
 
-/** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
+// /** Whether the number of selected elements matches the total number of rows. */
+//   isAllSelected() {
+//     const numSelected = this.selection.selected.length;
+//     const numRows = this.dataSource.data.length;
+//     return numSelected === numRows;
+//   }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  toggleAllRows() {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-      this.selectedRows = [];
-      this.showButton = this.selectedRows.length > 0;
-      return;
-    }
+//   /** Selects all rows if they are not all selected; otherwise clear selection. */
+//   toggleAllRows() {
+//     if (this.isAllSelected()) {
+//       this.selection.clear();
+//       this.selectedRows = [];
+//       this.showButton = this.selectedRows.length > 0;
+//       return;
+//     }
 
-    this.selection.select(...this.dataSource.data);
-    this.selection.selected.forEach(element => {
-      this.selectedRows.push(element);
-    });
-    //Habilita el boton para subir el producto
-    this.showButton = this.selectedRows.length > 0;
-  }
+//     this.selection.select(...this.dataSource.data);
+//     this.selection.selected.forEach(element => {
+//       this.selectedRows.push(element);
+//     });
+//     //Habilita el boton para subir el producto
+//     this.showButton = this.selectedRows.length > 0;
+//   }
 }
 
