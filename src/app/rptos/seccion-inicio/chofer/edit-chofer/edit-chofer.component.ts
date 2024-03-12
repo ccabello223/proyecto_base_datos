@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MainPageService } from 'src/app/rptos/seccion-productos/pages/main-page/services/main-page.service';
+import { MainPageService } from 'src/app/rptos/seccion-sistema/pages/main-page/services/main-page.service';
+
 import Swal from 'sweetalert2';
 
 @Component({

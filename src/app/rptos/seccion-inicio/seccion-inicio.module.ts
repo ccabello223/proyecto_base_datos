@@ -9,9 +9,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { ChoferModule } from './chofer/chofer.module';
 import { AdminModule } from './admin/admin.module';
 import { ClientModule } from './client/client.module';
+import { ChoferModule } from './chofer/chofer.module';
 
 @NgModule({
   declarations: [

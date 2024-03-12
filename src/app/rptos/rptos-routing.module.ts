@@ -13,11 +13,11 @@ const routes: Routes = [
       },
       {
         path:'productos',
-        loadChildren: () => import('./seccion-productos/seccion-productos.module').then(m=>m.SeccionProductosModule)
+        loadChildren: () => import('./seccion-sistema/seccion-sistema.module').then(m=>m.SeccionProductosModule)
       },
       {
         path:'pedidos',
-        loadChildren: () => import('./seccion-pedidos/seccion-pedidos.module').then(m=>m.SeccionPedidosModule)
+        loadChildren: () => import('./seccion-pedidos/seccion-ingresar-vehiculo.module').then(m=>m.SeccionPedidosModule)
       },
       {
         path:'**', redirectTo: 'productos',

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { MainPageService } from '../../seccion-productos/pages/main-page/services/main-page.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Usuario } from 'src/app/auth/interfaces';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { EditChoferComponent } from './edit-chofer/edit-chofer.component';
+import { MainPageService } from '../../seccion-sistema/pages/main-page/services/main-page.service';
 
 @Component({
   selector: 'app-chofer',

@@ -10,7 +10,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { EditChoferComponent } from './edit-chofer/edit-chofer.component';
 
 
-
 @NgModule({
   declarations: [ChoferComponent, EditChoferComponent],
   imports: [

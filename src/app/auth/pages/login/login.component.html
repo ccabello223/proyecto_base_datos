@@ -1,7 +1,10 @@
 <div class="flex flex-column">
     <mat-card class="shadow-8">
         <mat-card-header class="justify-content-center">
-            <mat-card-title>Login</mat-card-title>
+            <div class="column">
+                <img src="assets/logo.png" alt="Mi Imagen" width="50">
+                <mat-card-title>Login</mat-card-title>
+            </div>
         </mat-card-header>
 
             <form class="flex flex-column" [formGroup]="authFormulario" (ngSubmit)="login()">
