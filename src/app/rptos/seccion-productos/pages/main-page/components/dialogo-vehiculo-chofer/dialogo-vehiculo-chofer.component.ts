@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, ViewChild, inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { Ubicacion } from 'src/app/rptos/seccion-productos/interfaces/models/ubicaciones';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,6 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Vehiculo } from 'src/app/rptos/seccion-productos/interfaces/vehiculo-response';
 import { MainPageService } from '../../services/main-page.service';
+import { DialogoEvaluacionChoferComponent } from '../dialogo-evaluacion-chofer/dialogo-evaluacion-chofer.component';
 
 @Component({
   selector: 'app-dialogo-ubicaciones',
@@ -17,7 +18,8 @@ import { MainPageService } from '../../services/main-page.service';
 })
 export class DialogoVehiculoChoferComponent {
   private MainPageService = inject(MainPageService)
-
+  private dialog = inject(MatDialog)
+  
   displayedColumns: string[] = ['id', 'marca', 'color', 'placa', 'fecha', 'evaluacion'];
   dataSource!: MatTableDataSource<VehiculoTabla>;
 
@@ -64,6 +66,11 @@ export class DialogoVehiculoChoferComponent {
     }
 
     openDialogEvaluacionVehiculo(element:VehiculoTabla){
-      console.log("Hola");
+      this.dialog.open(DialogoEvaluacionChoferComponent, {
+        data: {
+          id: element.id,
+          tipo: 2,
+        },
+      })
     }
 }

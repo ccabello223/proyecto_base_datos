@@ -187,7 +187,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   openDialogEvaluacionChofer(element: any) {
     this.dialog.open(DialogoEvaluacionChoferComponent, {
-      data: element.id,
+      data: {
+        id: element.id,
+        tipo: 1,
+      },
     })
   }
 
@@ -204,123 +207,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   openDialogEvaluacionVehiculo(element: VehiculoTabla){
-    console.log("Hola");
+    this.dialog.open(DialogoEvaluacionChoferComponent, {
+      data: {
+        id: element.id,
+        tipo: 2,
+      },
+    })
   }
-
-//   onFileSelected(event: any) {
-//     this.selectedFile = event.target.files[0];
-//   }
-
-//   onUpload() {
-//     if (this.selectedFile == undefined) {
-//       Swal.fire('Error', "No ha subido ningún archivo!", 'error')
-//     } else {
-//       this.isLoading = true;
-//       this.MainPageService.postExcelProduct(this.selectedFile)
-//         .subscribe(resp => {
-//           if (resp["ok"] === true) {
-//             this.getChoferesFromBBDD();
-//             Swal.fire('Todo correcto!!', resp["msg"], 'success')
-//           }
-//           else {
-//             Swal.fire('Error', "Sucedió un error. Notificar a administración", 'error')
-//           }
-//           this.isLoading = false;
-//         })
-//     }
-//   }
-
-//   downloadExcel(): void {
-//     window.location.href = `${this.MainPageService.getBaseUrl}/productos/downloadExcel`;
-//   }
-
-//   /** The label for the checkbox on the passed row */
-//   checkboxLabel(row?: ChoferTabla): string {
-//     if (!row) {
-//       return '';
-//     }
-//     if (this.selection.isSelected(row)) {
-//       console.log(row);
-//       //return row.descripcion;
-//       return row.cedula;
-//     }
-//     return `${this.selection.isSelected(row) ? 'select' : 'deselect'} row ${row.id}`;
-//     // console.log(`${this.selection.isSelected(row) ? 'select' : 'deselect'} row ${row.id}`);
-//   }
-
-//   onRowSelect(event: any, row: any) {
-//     if (event.checked) {
-//       this.selectedRows.push(row);
-//     } else {
-//       const index = this.selectedRows.indexOf(row);
-//       if (index > -1) {
-//         this.selectedRows.splice(index, 1);
-//       }
-//     }
-//     this.showButton = this.selectedRows.length > 0;
-//   }
-
-
-//   deleteProductSelected() {
-//     let productosABorrar: number[] = [];
-//     this.selectedRows.forEach(element => {
-//       productosABorrar.push(element.id);
-//     })
-//     Swal.fire({
-//       title: '¿Estás seguro de borrar este artículo?',
-//       text: "¡Este cambio no podrá ser revertido!",
-//       icon: 'warning',
-//       showCancelButton: true,
-//       confirmButtonColor: '#3085d6',
-//       cancelButtonColor: '#d33',
-//       confirmButtonText: 'Sí, borrar'
-//     }).then((result:any) => {
-//       if (result.isConfirmed) {
-//         this.MainPageService.deleteProducts(productosABorrar).subscribe(resp => {
-//           if(resp["ok"] == true){
-//             Swal.fire(
-//               'Borrado!',
-//               resp["msg"],
-//               'success'
-//             );
-//             this.getChoferesFromBBDD();
-//           }else{
-//             Swal.fire(
-//               'Error!',
-//               resp["errorMsg"],
-//               'error'
-//             );
-//           }
-//         })
-//       }
-//     });
-    
-//   }
-
-//   /*---------------
-
-// /** Whether the number of selected elements matches the total number of rows. */
-//   isAllSelected() {
-//     const numSelected = this.selection.selected.length;
-//     const numRows = this.dataSource.data.length;
-//     return numSelected === numRows;
-//   }
-
-//   /** Selects all rows if they are not all selected; otherwise clear selection. */
-//   toggleAllRows() {
-//     if (this.isAllSelected()) {
-//       this.selection.clear();
-//       this.selectedRows = [];
-//       this.showButton = this.selectedRows.length > 0;
-//       return;
-//     }
-
-//     this.selection.select(...this.dataSource.data);
-//     this.selection.selected.forEach(element => {
-//       this.selectedRows.push(element);
-//     });
-//     //Habilita el boton para subir el producto
-//     this.showButton = this.selectedRows.length > 0;
-//   }
 }
-

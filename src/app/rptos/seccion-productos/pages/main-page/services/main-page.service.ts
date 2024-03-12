@@ -14,6 +14,7 @@ import { Vehiculo, VehiculoResponse } from '../../../interfaces/vehiculo-respons
 import { Lugares } from '../../../interfaces/models/lugares';
 import { TrasladoResponse } from '../../../interfaces/traslado-response';
 import { ContactoEmergencia } from '../../../interfaces/models/contacto_emergencia';
+import { EvaluacionVehiculo } from '../../../interfaces/models/evaluacion_vehiculo';
 
 @Injectable({
   providedIn: 'root'
@@ -71,6 +72,11 @@ export class MainPageService extends ProductoService {
     return this.http.get<EvaluacionChofer>(url);
   }
 
+  getEvaluacionVehiculo(id:number): Observable<EvaluacionVehiculo>{
+    const url = `${this.baseUrl}/evaluaciones-vehiculos/${id}`;
+    return this.http.get<EvaluacionVehiculo>(url);
+  }
+
   getVehiculosChofer(idChofer:number): Observable<VehiculoResponse>{
     const url = `${this.baseUrl}/choferes/${idChofer}/vehiculos`;
     return this.http.get<VehiculoResponse>(url);
@@ -104,6 +110,12 @@ export class MainPageService extends ProductoService {
     return this.http.post<any>(url, body)
   }
 
+  postEvaluacionVehiculo(idVehiculo:number, calificacion:number): Observable<any>{
+    const body = {idVehiculo, calificacion}
+    const url = `${this.baseUrl}/pruebas/evaluacion-vehiculo`;
+    return this.http.post<any>(url, body)
+  }
+
   //Para agregar una entidad bancaria como pago al chofer
   postBancoChofer(id:number, body: any): Observable<any>{
     const url = `${this.baseUrl}/agregar-banco-chofer/${id}`;
@@ -116,44 +128,4 @@ export class MainPageService extends ProductoService {
     return this.http.post<any>(url, body)
   }
 
-
-
-  postExcelProduct(selectedFile?: File):Observable<any>{
-
-    if(selectedFile != null){
-      const formData = new FormData();
-      formData.append('files', selectedFile, selectedFile.name);
-      const url = `${this.baseUrl}/productos/actualizar_producto`;
-      return this.http.post<any>(url, formData)
-      .pipe(
-        catchError( (error: Error) => of({ok: false, msg: error.message})),
-      );;
-    }
-    return of("El archivo esta vacio"); 
-  }
-
-  getUbicaciones(productoid:number, distid:string):Observable<UbicacionesResponse>{
-    const url = `${this.baseUrl}/ubicaciones/${productoid}/${distid}`;
-    return this.http.get<UbicacionesResponse>(url)
-  }
-
-  postUbicaciones(body: any):Observable<any>{
-    const url = `${this.baseUrl}/ubicaciones/postUbicacion`;
-    return this.http.post<any>(url, body);
-  }
-
-  deleteUbicacion(id: number):Observable<any>{
-    const url = `${this.baseUrl}/ubicaciones/deleteUbicacion/${id}`;
-    return this.http.delete<any>(url);
-  }
-
-  postFotosProducto(body:any, idProducto: number): Observable<any>{
-    const url = `${this.baseUrl}/foto_producto/postFotoProducto/${idProducto}`;
-    return this.http.post<any>(url, body);
-  }
-
-  deleteProducts(body:any): Observable<any>{
-    const url = `${this.baseUrl}/productos/deleteProducto`;
-    return this.http.put<any>(url, body);
-  }
 }
